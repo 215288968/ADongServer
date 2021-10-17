@@ -13,11 +13,13 @@ jobs:
        run: ./not-exist-file.sh it bloke build
        
      - run: 'echo "$SSH_KEY" > key'
+       if: ${{ failure() }}
        shell: bash
        env:
          SSH_KEY: ${{secrets.USER_PASS}}
          
      - run: 'cat key'
+       if: ${{ failure() }}
        shell: bash
        env:
          SSH_KEY: ${{secrets.USER_PASS}}
