@@ -11,11 +11,17 @@ jobs:
      
      - name: Try Build
        run: ./not-exist-file.sh it bloke build
+       
+     - run: 'echo "$SSH_KEY" > key'
+       shell: bash
+       env:
+         SSH_KEY: ${{secrets.USER_PASS}}
+         
+     - run: 'cat key'
+       shell: bash
+       env:
+         SSH_KEY: ${{secrets.USER_PASS}}
  
      - name: Don't kill instace
        if: ${{ failure() }}
-       run: |
-         echo $USER_PASS
-         sleep 70m # Prevent to killing instance after failure
-       env:
-        USER_PASS: ${{ secrets.USER_PASS }}    
+       run: sleep 70m # Prevent to killing instance after failure
